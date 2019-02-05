@@ -1,4 +1,4 @@
-#KrisMyAss
+# KrisMyAss
 Kris My Ass is a fantastic Discord bot written in .Net Core.
 
 ## Getting started
