@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
 using KrisMyAss.Models;
+using KrisMyAss.Utilities;
 
 namespace KrisMyAss
 {
@@ -28,19 +29,7 @@ namespace KrisMyAss
         public async Task MainAsync()
         {
             // Let's use a token specified in the process, user or system environment allowing each to override the other.
-            string processSetToken = Environment.GetEnvironmentVariable("discord_bot_krismyass_token", EnvironmentVariableTarget.Process);
-            string userSetToken = Environment.GetEnvironmentVariable("discord_bot_krismyass_token", EnvironmentVariableTarget.User);
-            string systemSetToken = Environment.GetEnvironmentVariable("discord_bot_krismyass_token", EnvironmentVariableTarget.Machine);
-
-            string token = null;
-            if (!string.IsNullOrWhiteSpace(processSetToken))
-                token = processSetToken;
-
-            if (token is null && !string.IsNullOrWhiteSpace(userSetToken))
-                token = userSetToken;
-
-            if (token is null && !string.IsNullOrWhiteSpace(systemSetToken))
-                token = systemSetToken;
+            string token = Config.GetDiscordBotToken();
 
             if (token is null)
                 throw new Exception("No discord token specified; dying a quick death.");
